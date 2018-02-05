@@ -1,0 +1,118 @@
+
+
+https://yiiweb.wordpress.com/2013/03/09/link/
+
+
+
+Creation of a link by the Yii way	
+//Generates a simple hyperlink tag
+echo CHtml::link('Link Text', array('/controller/action'));
+
+	
+//linking within same controller actions
+echo CHtml::link('Link Text', array('action'));
+ 
+//text link with parameters
+echo CHtml::link('Link Text', array('controller/action',
+          'param1'=>'value1', 'param2'=>'value2'));
+echo CHtml::link('Link Text',
+          Yii::app()->createUrl('controller/action', 
+                   array('param1'=>'value1', 'param2'=>'value2')); 
+ 
+//link with additional HTML attributes
+echo CHtml::link('Link Text', array('controller/action'), 
+          array('class' => 'foo'));
+ 
+//Link opening a new page
+echo CHtml::link('Link Text',array('controller/action'), 
+          array('target'=>'_blank');
+ 
+//links in modules
+echo CHtml::link('Link Text',array('/module-id/controller/action'));
+//make absolute paths avoiding to use static module names
+echo CHtml::link('Link Text', array('/{$this->module->id}/controller/action'));
+
+Images as a links or buttons
+	
+$image = CHtml::image(Yii::app()->baseUrl.'/images/thumb-1.jpg');
+echo CHtml::link($image, array('action'));
+ 
+//similar to
+echo CHtml::link(
+          CHtml::image(Yii::app()->baseUrl.'/images/thumb-1.jpg'), 
+               array('action'));
+
+Links with JavaScript
+	
+//POST method
+echo Chtml::link('label', '#', 
+          array('submit'=>array('update'), 
+                'params'=>array('id'=>$data->ID, 'param2' => 'value')
+    )
+);
+ 
+//Delete actions with dialog preventing deletion objects by accident
+echo CHtml::link('Delete',"#", 
+          array('submit'=>array('delete', 'id'=>$data->ID), 
+                'confirm' => 'Are you sure?'));
+//when use CSRF protection add csrf parameter
+echo CHtml::link('Delete',"#", 
+          array('submit'=>array('delete', 'id'=>$data->ID), 
+                'confirm' => 'Are you sure?', 'csrf'=>true));
+ 
+//make POST request with arbitary link with additional POST parameters
+<p><?php echo CHtml::link('Delete blog post', '#', array(
+    'submit'=>array('blog/deletePost', 'param'=>100),
+    'params'=>array('id'=>$post->id, 'status'=>Post::STATUS_DELETED_BY_OWNER),
+    'csrf'=>true,
+)); ?></p>
+
+ajaxLink examples
+	
+echo CHtml::ajaxLink('Link text', Yii::app()->createUrl( 'user/region' ),
+           array( // ajaxOptions
+                'type' => 'POST',
+                'beforeSend' => "function( request ) {
+                     parent.jQuery.fancybox.close();  }",
+                'data' => array('id_region'=>$ids)
+           ),
+           array( //htmlOptions
+                'href' => Yii::app()->createUrl( 'user/region' ),
+           )
+     );
+
+more on jQuery ajax parameters
+
+Other examples
+	
+//Back
+echo CHtml::link('Back',Yii::app()->request->urlReferrer);
+ 
+//Link to Home
+CHtml::link('Home', $this->createAbsoluteUrl('/'));
+CHtml::link('Home', '/');
+CHtml::link('Update', Yii::app()->request->requestUri);
+ 
+//if App is not in the root folder
+echo CHtml::link('Home',Yii::app()->baseUrl);
+//with slash at the end
+echo CHtml::link('Home',Yii::app()->homeUrl); 
+ 
+//but widget CMenu requres controller/action pair
+echo CHtml::link('Home',array('/'.Yii::app()->defaultController)); 
+//and menu
+$this->widget('zii.widgets.CMenu',array(
+    'items'=>array(
+        array('label'=>'Home', 'url'=>array('/'.Yii::app()->defaultController)),
+    ),
+)); 
+ 
+//CHTML::link with onclick
+CHtml::link($city, array('user/region','id_region'=>$ids ), array(
+                            'click'=>'parent.jQuery.fancybox.close();',
+                            'submit' =>  array('user/region'),
+                            'params' => array('id'=>$ids),
+ 
+                            )
+                        ) 
+

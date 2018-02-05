@@ -1,0 +1,860 @@
+<?php /*
+
+config REF Key for Property_typ is 19  in FormDesigner Table !!!!!!!!!!!
+FORMAT CSS
+http://www.lonniebest.com/FormatCSS/
+http://code.tutsplus.com/tutorials/the-30-css-selectors-you-must-memorize--net-16048
+
+PLS READ BELOW URL TO UnderSTAND $this USAGE
+http://www.programmerinterview.com/index.php/php-questions/php-self-vs-this/
+
+An instance method is called on an object:
+$this pointer always references the current object,
+Remember the $this variable is basically a reference to the current $object
+Compare self/static to $this, $this will just call the version of myPublicFunction() that belongs to 
+the same class type/MyClass() as the calling $object. $this variable is basically a reference to 
+the current define variable $object,
+
+Keep in mind that in PHP, STATIC properties CANNOT be accessed through the object using the arrow operator ->.
+ ALWAYS refer to static variables using a static context (e.g by using self, or the class name). 
+
+    $object = new MyClass();
+    $result = $object->myPublicFunction();
+
+A static method is called on the class itself:
+    $result = MyClass::myPublicStaticFunction();
+    ApartmentInfotypeA100::zzyysaveOther($this->_model); 
+    Apartment::zzyysaveCategories($this->_model->id);
+
+        $this->zzyyAptModelClass = 'Apartment';                                                    
+        $zzyySaveCat = new $this->zzyyAptModelClass;
+        $zzyySaveCat = new Apartment;
+        $zzyySaveCat->id = $model->id;
+        $zzyySaveCat->saveCategories();
+
+-self refers to the current class
+-self can be used to call static functions and reference static
+  member variables
+-self can be used inside static functions
+-$this refers to the current object
+-$this in public function can be used to call outside static functions
+-$this should not be used to call static member
+ variables.  Use self instead.
+-$this can not be used inside static functions
+
+
+ORZ is based on YII 1.1.15 Framework                echo Yii::getVersion();
+Color: #F4F1E9, #C29A58 
+Main Search Criteria    $zzyySearchText;    C:\xampp\htdocs\orz\protected\modules\quicksearch\controllers\MainController.php
+list your property:         C:\xampp\htdocs\orz\protected\modules\apartments\models\Apartment.php;     $model->save(false); (trigger save before act save)
+Complete Apt Maintenance FORM:      C:\xampp\htdocs\orz\protected\modules\apartments\views\backend\__form.php
+Home Page Level 1 Menu:             C:\xampp\htdocs\orz\protected\components\Controller.php 
+Listing of ALL APT per user login:      C:\xampp\htdocs\orz\protected\modules\apartments\controllers\backend\MainController.php   Apartment('search')
+Build Up the entire inner-search form $this->renderPartial('//site/_search_form'        C:\xampp\htdocs\orz\themes\classic\views\site\_search_form.php
+inner search form box color and div <div class="header-form-line select-num-of-rooms-inner header-small-search" id="search_form">C:\xampp\htdocs\orz\themes\classic\views\site\inner-search.php
+
+public function search() for custom build in Apt Status Listing Selection        
+C:\xampp\htdocs\orz\protected\modules\apartments\models\Apartment.php
+
+How to use a single form to collect data for two or more models
+http://www.yiiframework.com/wiki/19/how-to-use-a-single-form-to-collect-data-for-two-or-more-models/
+
+ Creating a dependent dropdown
+http://www.yiiframework.com/wiki/24/
+
+investigate array in $criteria->addInCondition
+$criteria->addInCondition('TypeCode', array('A', 'C', 'P', 'S', 'V', 'Z'));        
+C:\xampp\htdocs\orz\protected\modules\apartments\models\Apartment.php
+
+                    $resTerm = Yii::app()->db->createCommand($sql)->queryAll();
+                    if (is_array($resTerm) && count($resTerm) > 0) {
+                            $resTerm = CHtml::listData($resTerm, 'id', 'relevance');
+
+                            $criteria->addInCondition('t.id', array_keys($resTerm));
+                    }
+                    else {
+                            $criteria->addInCondition('t.id', array(0)); 
+                    }
+
+
+
+Main Control Load each Serach Field Form in  <C:\xampp\htdocs\orz\themes\classic\views\site\> directory
+C:\xampp\htdocs\orz\themes\classic\views\site\_search_form.php
+
+$isInner = True for Wide Box Search Form -> $divClass = 'small-header-form-line width450';
+$compact = Half or Narrow Box Search From  ->         $divClass = 'header-form-line'; 
+C:\xampp\htdocs\orz\themes\classic\views\site\_search_form.php
+
+terence between search box & property news space control    
+C:\xampp\htdocs\orz\themes\classic\views\site\_search_form.php
+
+ORZ use inner-search.php for home page search
+C:\xampp\htdocs\orz\themes\classic\views\site\inner-search.php
+
+More Options Box    
+C:\xampp\htdocs\orz\themes\classic\views\site\_search_form.php
+
+Load first 6 Search Field in Less Option Search Box (using java script to control Search Box Feilds & Search Behavior)
+C:\xampp\htdocs\orz\themes\classic\views\site\_search_js.php
+
+List All THE APT Items on Home MAP Page
+this->render('widgetApartments_list_item', array('apartments' => $apartments));  ?> 
+C:\xampp\htdocs\orz\themes\classic\views\modules\apartments\views\widgetApartments_list_map.php
+
+/* terence search box background color background-color: #5B9EA3;*/
+
+ORZ\index.php
+        \confg\main.php                                                            C:\xampp\htdocs\orz\protected\config\main.php                
+        \layouts\index.php                                                           C:\xampp\htdocs\orz\themes\classic\views\layouts\index.php    
+                    main              Load Heading 1 & 2 Menu
+                    inner-search    Load Search Box
+        SiteController.php      init()                                   C:\xampp\htdocs\orz\protected\controllers\SiteController.php
+        Controller.php           init()                                   C:\xampp\htdocs\orz\protected\components\Controller.php   ????
+        SiteController.php      actionIndex()                       C:\xampp\htdocs\orz\protected\controllers\SiteController.php
+        SiteController.php      Load news by Render             C:\xampp\htdocs\orz\protected\controllers\SiteController.php
+       \site\index.php          Display News                        C:\xampp\htdocs\orz\themes\classic\views\site\index.php
+       \site\index.php          Apt Listing ApartmentsWidget   C:\xampp\htdocs\orz\themes\classic\views\site\index.php
+       ApartmentsWidget     run() Display Apt List on Home Page     C:\xampp\htdocs\orz\protected\modules\apartments\components\ApartmentsWidget.php
+
+call flow
+index.php:                  C:\xampp\htdocs\orz\themes\classic\views\layouts\index.php
+main.php                    C:\xampp\htdocs\orz\themes\classic\views\layouts\main.php                                
+inner-search.php;         C:\xampp\htdocs\orz\themes\classic\views\site\inner-search.php
+_search_form.php        C:\xampp\htdocs\orz\themes\classic\views\site\_search_form.php   (building all the search fields based on formdesigner)
+_search_field_xxxxxxx   C:\xampp\htdocs\orz\themes\classic\views\site\_search_field_xxxxxx (looop in    _search_form.php   )
+_search,js                  C:\xampp\htdocs\orz\themes\classic\views\site\_search_js.php  (Home search box fields options)
+
+inner-search.php;  onSearch  CALL    C:\xampp\htdocs\orz\protected\modules\quicksearch\controllers\MainController.php
+                                                $this->renderPartial('index', array(
+					'criteria' => $criteria,
+					'apCount' => $apCount,
+					'filterName' => $filterName,
+			));
+                                        C:\xampp\htdocs\orz\themes\classic\views\modules\quicksearch\views\index.php
+
+index.php                    C:\xampp\htdocs\orz\themes\classic\views\modules\quickqsearch\views\index.php   <call below>
+                                 $this->widget('application.modules.apartments.components.ApartmentsWidget', 
+ApartmentsWidget.php    C:\xampp\htdocs\orz\protected\modules\apartments\components\ApartmentsWidget.php 
+                                      run() {	Yii::import('application.modules.apartments.helpers.apartmentsHelper');
+apartmentsHelper.php      C:\xampp\htdocs\orz\protected\modules\apartments\helpers\apartmentsHelper.php
+
+
+3 php files need to modify for key SEARCH Criteria filtering 
+Home Page Loading     C:\xampp\htdocs\orz\protected\modules\apartments\helpers\apartmentsHelper.php
+Home Page Search        C:\xampp\htdocs\orz\protected\modules\quicksearch\controllers\MainController.php
+USer Listing                C:\xampp\htdocs\orz\protected\modules\apartments\models\Apartment.php   
+
+
+ innerSetAdvanced: function() Set <Find> Search Button Line 
+C:\xampp\htdocs\orz\themes\classic\views\site\_search_js.php
+
+
+HTML Input Fields Check & Set Value                    
+ $roomsMin = isset($this->roomsCountMin) ? CHtml::encode($this->roomsCountMin) : 0;
+ $roomsMax = isset($this->roomsCountMax) ? CHtml::encode($this->roomsCountMax) : max($roomItems);
+
+after import DB to Hosting Site
+make sure delete all the Cache & Asset Files
+
+set own custom error message in modal tables
+array('count_img', 'numerical', 'min' => 1,  'tooSmall' => Yii::t('module_apartments', 'MissingPhoto')),
+C:\xampp\htdocs\orz\protected\modules\apartments\models\Apartment.php
+
+e.g. Validation Routine for Modal
+C:\xampp\htdocs\orz\framework\validators\CNumberValidator.php
+
+main.db configuate App Parameteres
+C:\xampp\htdocs\orz\protected\config\main.php
+
+ckeditor
+http://www.yiiframework.com/wiki/432/ckeditor-integration-includes-steps-for-file-uploads-step-by-step/ <Working>
+http://www.bsourcecode.com/2013/06/ckeditor-in-yii-framework/ <NOT Working, but can be a reference point>
+copy ckeditor full version 4.4.7 to c:\xampp\htodcs\orz\ckeditor
+check out <contact us>
+
+
+APt <tab page> information maint screen 
+C:\xampp\htdocs\orz\protected\modules\apartments\views\backend\*.*
+
+
+News & WelCome Information Web page
+($page->page->body) -> Welcome moldule
+C:\xampp\htdocs\zzz\themes\classic\views\site\index.php
+
+
+BUILD HOME page APT listing BLOCK BOMB !!!! WIP
+$this->widget(ucfirst($page->page->widget).'Widget');
+C:\xampp\htdocs\zzz\themes\classic\views\site\index.php
+C:\xampp\htdocs\orz\themes\classic\views\modules\apartments\views\widgetApartments_list.php
+C:\xampp\htdocs\orz\themes\classic\views\modules\apartments\views\widgetApartments_list_item.php
+C:\xampp\htdocs\orz\themes\classic\views\modules\apartments\views\widgetApartments_list_map.php
+
+
+home page icon setting
+widget('ext.sharebox.EShareBox'
+C:\xampp\htdocs\zzz\themes\classic\views\layouts\main.php
+
+
+view tab control
+C:\xampp\htdocs\orz\themes\classic\views\modules\apartments\views\_view.php
+
+CKEDITOR
+http://ckeditor.com/latest/samples/plugins/toolbar/toolbar.html
+
+
+google map cluster grouping of multiple apt with same address into one group
+CustomGMap::clusterMarkers();
+C:\xampp\htdocs\orz\protected\modules\viewallonmap\components\ViewallonmapWidget.php
+
+List ALL the APt on Home by Map Page
+<div class="apartment_list_map" id="list_map_block" exist="1">
+C:\xampp\htdocs\orz\themes\classic\views\modules\apartments\views\widgetApartments_list_map.php
+
+
+if(!Yii::app()->user->isGuest){
+		if(!$model->name)
+			$model->name = Yii::app()->user->username;
+		if(!$model->phone)
+			$model->phone = Yii::app()->user->phone;
+		if(!$model->email)
+			$model->email = Yii::app()->user->email;
+	}
+
+
+create email ac for 'support@gopropertypage.com',
+
+below 2 files causing firefox browser initial loading web page shift left
+REFRESH CSS File: <link media="screen, projection" type="text/css" href="<?php echo $baseThemeUrl; ?>/css/styles.css?<?php echo time(); ?>" rel="stylesheet" />
+C:\xampp\htdocs\ore110\themes\classic\views\layouts\main.php
+
+usercpanel.css
+C:\xampp\htdocs\orz\themes\classic\views\layouts\usercpanel.php
+
+C:\xampp\htdocs\orz\themes\classic\views\layouts\index.php
+C:\xampp\htdocs\orz\themes\classic\views\layouts\main.php
+finally delete all lines of code in styles.css in web hosting site, and run the web app., and then copy and paste old version run it again, and finally paste back the final version source code then it work !!!!
+seem like web server not flush out styles.css file..
+
+if (count($findIds) > 0)
+	$countImagesArr = Images::getApartmentsCountImages($findIds);
+
+Causing Load BigMap Failed, below script seem needed to achieve below features
+1. responsive : to reposition the page 1st line to its content;
+2. to realign map icon with property being focused...
+
+
+C:\xampp\htdocs\orz\themes\classic\views\modules\apartments\views\widgetApartments_list.php
+C:\xampp\htdocs\orz\themes\classic\js\common.js
+Yii::app()->clientScript->registerScript('search-vars', "
+	var urlsSwitching = ".CJavaScript::encode($urlsSwitching).";
+",
+
+Causing map not able to OPEN infowindow 
+<script type="text/javascript">
+                  zzyymodeListShow  = '';  
+                  zzyymodeListShow = <?php echo CJSON::encode($zzyymodeListShow); ?>;                       
+ </script>
+C:\xampp\htdocs\orz\themes\classic\views\modules\apartments\views\widgetApartments_list.php
+C:\xampp\htdocs\orz\themes\classic\js\common.js
+
+
+contain all the Home Page Search Fields Setting
+C:\xampp\htdocs\orz\themes\classic\js\common.js
+C:\xampp\htdocs\orz\themes\classic\js\common.js
+C:\xampp\htdocs\orz\themes\classic\views\site\_search_js.php
+
+clear cache
+Yii:: app () ->cache->flush() 
+To delete all cache data, use flush() method:
+	Yii::app()->cache->flush();
+To delete all expired cache data, use gc() method:
+	Yii::app()->cache->gc();
+
+Yii:: app () ->cache->flush() 
+Another way:
+//if you use CFileCache
+$cache=new CFileCache();
+$cache->flush();
+CFileCache::gc(false);
+
+//if you use CMemCache
+$cache2=new CMemCache();
+$cache2->flush();
+
+
+
+class CFileCache seem caching for file caching is defined in => class CFileCache extends CCache
+if($expire<=0)
+			$expire=31536000; // 1 year
+		$expire+=time();
+
+C:\xampp\htdocs\orz\framework\caching\CFileCache.php
+
+C:\xampp\htdocs\orz\protected\modules\apartments\models\Apartment.php (
+Possible causing invalid save:
+$criteria->addCondition($this->getTableAlias() . '.active<>:draft');
+        $criteria->params[':draft'] = self::STATUS_DRAFT;
+
+
+List APT Sys Status
+getModerationStatusArray(
+C:\xampp\htdocs\orz\protected\modules\apartments\models\Apartment.php
+
+C:\xampp\htdocs\ore111\themes\classic\views\layouts\main.php -> HSite::registerMainAssets(); 
+-> $cs->registerScriptFile($baseThemeUrl . '/js/common.js', CClientScript::POS_BEGIN);
+
+ALL Tables fields shoud use utf8mb4_unicode_ci (CASE INSENSITIVE FOR SEARCH)
+https://mathiasbynens.be/notes/mysql-utf8mb4
+http://jbisbee.blogspot.com/2013/07/set-utf-8-as-default-mysql-encoding.html
+
+photo for listing
+C:\xampp\htdocs\orz\protected\modules\images\components\AdminImagesWidget.php
+C:\xampp\htdocs\orz\themes\classic\views\modules\images\views\widgetAdminImages.php
+
+currency        param('siteCurrency', 'RM')
+C:\xampp\htdocs\orz\protected\modules\apartments\views\backend\__form_general.php
+echo $form->hiddenField($model, 'in_currency'); 
+
+mandatory to have title, address, photo, and phone           
+
+
+Yii::app()->clientScript->registerCssFile( Yii::app()->clientScript->getCoreScriptUrl(). '/jui/css/base/jquery-ui.css' );
+
+URL PHP         C:\xampp\htdocs\orz\protected\components\CustomUrlManager.php
+
+ echo '<div class="row buttons save">';
+    echo CHtml::button(tc('Save'), array(
+        'onclick' => "$('#Apartment-form').submit(); return false;", 'class' => 'big_button',
+    ));
+
+
+default Login & logout Heading 1:       C:\xampp\htdocs\orz\protected\components\Controller.php
+   Disable Booking Property from MainMenu    C:\xampp\htdocs\orz\protected\components\Controller.php
+
+C:\xampp\htdocs\zzd\protected\modules\apartments\views\backend\__form_general.php
+C:\xampp\htdocs\zzd\protected\modules\apartments\models\Apartment.php
+
+default red color for text:         #852432         / RGB       R: 133 G: 36 B: 50
+default navy color for text: #204782 
+color for .info-tabs, sf-menu
+
+ORDER of style need to comply
+1.	a:link 
+2.	a:visited
+3.	a:hover
+4.	a:active
+
+Internal styles are defined within the <style> element, 
+nside the head section of an HTML page:
+                <head>
+                   <style>
+
+                   </style>
+               </head>
+
+login property 
+
+
+Search BOX PAGE RENDER      $content            C:\xampp\htdocs\orz\themes\classic\views\site\inner-search.php
+
+ex. widget for theme path               $this->widget('webroot.themes.classic.views.modules.userads.views.create');
+$assetsPath = Yii::getPathOfAlias('webroot.themes.'.Yii::app()->theme->name . '.views.modules.sitemap.views.index');
+$this->widget($assetsPath);
+
+level 1 heading menu        C:\xampp\htdocs\orz\protected\components\Controller.php
+level 2 heading menu        $this->aData['topMenuItems'] = $this->infoPages;            C:\xampp\htdocs\orz\protected\components\Controller.php
+
+To Create Addtional Menu Entries
+    Define Menu Entry Add on      (getWidgetOptions) of   C:\xampp\htdocs\orz\protected\modules\infopages\models\InfoPages.php
+    Define addtional menu entries in BackEnd Admin menu:             Top menu items & Infopage
+
+
+need to remove                      'name'=>'Open Real Estate PRO','name'=>'Open Real Estate PRO',
+
+
+Control the ORZ Web Layout:     C:\xampp\htdocs\orz\themes\classic\views\site\index.php
+: level 1 & 2 menu:                     this->beginContent('//layouts/main');
+: Show Search Box:                      if($this->showSearchForm){
+                                                    $this->renderPartial('//site/inner-search');
+                                                 }
+
+
+home menu separator;               'separator' => ' &raquo; ',
+
+.info-tabs .ui-tabs-anchor:hover {         
+     background-color:#B8D6D6 !important;        
+     color:    #852432 !important;
+}   
+
+#tabs .ui-tabs-nav  {         
+      background: #A19F9F;      
+/*   padding: 2px 2px 2px 2px;   
+    color: #ffffff !important; */
+}   
+
+
+#tabs .ui-tabs-active a {
+    background-color: #5B9EA3  !important;
+    color: #ffffff !important; 
+}
+
+.ui-tabs-anchor {         
+  background: none  #8E8E91;
+   padding: 5px 3px 3px 5px;   
+    color: #fff !important; 
+}   
+
+#tabs .ui-tabs-anchor:hover {         
+     background-color:#B8D6D6 !important;        
+     color:    #852432 !important;
+}   
+
+
+
+#usermenu #navlist li.active a {
+    background-color: #5B9EA3  !important;
+    color: #ffffff !important; 
+    text-decoration:none;
+    border: 2px solid whitesmoke;   
+}
+
+save other model data           :  HApartment::saveOther($model);       C:\xampp\htdocs\orz\protected\modules\userads\controllers\MainController.php
+C:\xampp\htdocs\orz\protected\helpers\HApartment.php
+
+user panel listing based on system & user apt status:                   
+    $criteria->addInCondition($this->getTableAlias() . '.active', self::zzyyAdminStatus());
+    C:\xampp\htdocs\orz\protected\modules\apartments\models\Apartment.php
+
+    public function search()
+    C:\xampp\htdocs\orz\protected\modules\userads\models\UserAds.php
+
+
+
+user panel activate & deactive apt status:  public static function returnStatusOwnerActiveHtml      public static function returnStatusHtml
+C:\xampp\htdocs\orz\protected\modules\userads\models\UserAds.php
+
+
+search controller:              e.g. disable rent by hour/day           C:\xampp\htdocs\orz\protected\components\SearchForm.php
+
+Main Forms:             C:\xampp\htdocs\orz\themes\classic\views\modules\userads\views\_form.php
+
+Disable Video & Panorama
+C:\xampp\htdocs\orz\themes\classic\views\modules\userads\views\_form.php
+
+SAVE button on top of  FORMS (except photo & map)
+C:\xampp\htdocs\orz\protected\modules\apartments\views\backend\__form.php
+
+SAVE button on top of Photo & Map FORMS
+C:\xampp\htdocs\orz\themes\classic\views\modules\userads\views\_form.php
+
+Expand the FORM UserCpanel-Right Top Level Menu:        <div class="form">       
+C:\xampp\htdocs\orz\themes\classic\views\modules\userads\views\_form.php
+
+
+
+WEHN Click Home Page SEARCH Button: it will trigger below in
+<form id="search-form" action="<?php echo Yii::app()->controller->createUrl('/quicksearch/main/mainsearch');?>" method="get">
+C:\xampp\htdocs\orz\themes\classic\views\site\index-search.php
+
+to edit Aparmtent from URL                          $editUrl = $model->getEditUrl();
+C:\xampp\htdocs\orz\themes\classic\views\modules\apartments\views\view.php
+
+
+
+To Create & Delete  APT Listing via URL
+ $menuItems = array(
+//    		array('label' => tt('Manage apartments', 'apartments'), 'url'=>array('/usercpanel/main/index')),
+//    		array('label' => tt('Add apartment', 'apartments'), 'url'=>array('create')),
+//    		array(
+//    			'label' => tt('Delete apartment', 'apartments'),
+//    			'url'=>'#',
+//    			'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>tc('Are you sure you want to delete this item?'))
+//    ));
+
+
+to clear variables
+$modelAds = new Apartment('search');               
+Yii::app()->user->setState('searchUrl', NULL);
+$modelAds->unsetAttributes();  // clear any default values
+
+set Cpanel menu active
+  $this->setActiveMenu('add_ad');        
+
+
+in Control Panel Listing to activate USerStatus Function        public static function returnStatusOwnerActiveHtml
+C:\xampp\htdocs\orz\protected\modules\userads\models\UserAds.php
+
+
+www.yiiframework.com/wiki/161/understanding-safe-validation-rules/
+$model->setAttributes( $_POST['Comment'] ); // this is an array!
+
+//same as above
+$model->author  = $_POST['Comment']['author'];
+$model->email   = $_POST['Comment']['email'];
+$model->url     = $_POST['Comment']['url'];
+$model->content = $_POST['Comment']['content'];
+
+SEach with and OR       //stackoverflow.com/questions/12660958/yii-how-to-add-or-operator-at-criteria
+
+ //yiiframework.com/wiki/199/creating-a-parameterized-like-query/
+                $zzyySearchText =  addcslashes($zzyySearchText, '%_'); // escape LIKE's special characters
+                $criteria->addCondition(('t.title_en like :zzyySearchText) or (t.address_en like :zzyySearchText'));  
+                $criteria->params[':zzyySearchText'] = "%$zzyySearchText%";
+
+Another way to have the LIKE expressions (especially RLIKE(REGEXP)) within the long Queries is to CONCAT
+
+$db->
+    createCommand("SELECT ... WHERE ... LIKE CONCAT('%', :param1, '%', :param2) ESCAPE '='")
+    ->query(array(
+        ':param1' => YourTools::EscapeLikeWildCards($thisModel->attribute1, '='),
+        ':param2' => YourTools::EscapeLikeWildCards($thisModel->attribute2, '='),
+    ))
+
+
+
+
+//yiiframework.com/forum/index.php/topic/38344-cdbcriteriahaving-parameters-escaping/
+using like search
+$criteria->having = "description LIKE :searchparam";
+$criteria->params[':searchparam'] = "%" . $this->description . "%";
+
+$criteria = new CDbCriteria;
+$criteria->select = array(
+    "*",
+    "SUM(t.amount) AS amount",
+    "GROUP_CONCAT(t.description SEPARATOR ', ') AS description",);
+$criteria->group = 't.payment_id';
+$havingCriteria = new CDbCriteria();
+$havingCriteria->compare('description', $this->description, true);
+$criteria->having = $havingCriteria;
+
+
+ECHO possible cause of main page SEarch box Loading first line then the rest 
+C:\xampp\htdocs\orz\themes\classic\views\site\inner-search.php
+
+
+for Searching better 
+1. First AddCondition
+2. Last Compare
+
+// Terence All SEARCH RESULT will collect in  $criteria and reder in (// C:\xampp\htdocs\orz\themes\classic\views\layouts\index.php)
+C:\xampp\htdocs\orz\protected\modules\quicksearch\controllers\MainController.php
+                                    $this->render('index', array(
+				'criteria' => $criteria,
+				'apCount' => $apCount,
+				'filterName' => $filterName,
+
+& (ampersand)
+' (apostrophe or single quote)
+" (double quote)
+\n (new line)
+\r (carriage return)
+\' (apostrophe or single quote)
+\" (double quote)
+\\ (backslash)
+\uXXXX (unicode values)
+
+
+
+If you are trying to sort using a function inside a class, you can't just pass the comparison function as 
+'$this->compare_fullname', but instead need to include either the object or the class name in the call to usort. Here's an example:
+<?PHP
+  class ClassName
+  {
+    public $data = array(
+      ...............
+    );
+    public function compare_fullname($a, $b)
+    {
+      $retval = strnatcmp($a['lastname'], $b['lastname']);
+      if(!$retval) return strnatcmp($a['firstname'], $b['firstname']);
+      return $retval;
+    }
+
+    public function doStuff()
+    {
+      // apply sort function from INSIDE class
+      usort($this->data, array($this, 'compare_fullname'));
+    }
+  }
+// apply sort function from OUTSIDE class
+  $myObject = new ClassName();
+  usort($myObject->data, array("ClassName", 'compare_fullname'));
+?>
+
+From inside the class $this refers to both the object as well as the class and all associated functions. 
+From outside we can't use $this so have to refer to the class by name.
+
+
+For CSORT() -> take a look at   class apartmentsHelper      C:\xampp\htdocs\orz\protected\modules\apartments\helpers\apartmentsHelper.php
+
+
+Online: Need to have at least a Phioto for the Listing; Offline: Still drafting, NOT yet ready Release to Public
+
+
+Offline: Not Ready to Release to Public
+Online: Ready & Confirmed Release to Public
+
+
+for Filterling 
+need to add simlar logic in Model file -> SEARCH e.g.
+$criteria->compare($this->getTableAlias() . '.listing_stat', $this->listing_stat, true);  
+
+to get current user in which Search Mode use  User::getModeListShow();
+
+Yii::app()->controller->createAbsoluteUrl('/?ls=block');
+$this->breadcrumbs = array(
+    tc('Control panel') => Yii::app()->createUrl('/usercpanel'),
+
+    tc('My data'),
+);
+
+
+count = $a > $b ? $b : $a;
+is the same as the following code:
+if ($a > $b)
+count = $b;
+else
+count = $a; 
+
+//  php.net/manual/en/control-structures.alternative-syntax.php
+ if, while, for, foreach, and switch. In each case, the basic form of the alternate syntax is to change the opening brace to a colon (:) 
+and the closing brace to endif;, endwhile;, endfor;, endforeach;, or endswitch;, respectively. 
+
+<?php if ($a == 5): ?>
+A is equal to 5
+<?php endif; ?>
+
+Apt Listing Display widget
+$this->widget('application.modules.apartments.components.ApartmentsWidget', array(
+		'criteria' => $criteria,
+		'widgetTitle' => tt('all_by_filter', 'apartments') . ' "' . $filterName . '"',
+	));
+
+common.js                           C:\xampp\htdocs\orz\themes\classic\js\common.js
+                                        contain varies javascript function e.g. freeze screen reload apartment list
+
+
+Apartment creation General Form     (drop down list per period: week/month cause BOMB if remarked out)
+
+Referenec Facility Link              C:\xampp\htdocs\orz\protected\views\common\apartments\fields\references.php
+
+ echo CHtml::hiddenField('is_update', 0);
+
+to add Cust TAB
+search  <extended13> <Fields13>
+
+$modelAds->unsetAttributes();  // clear any default values
+	if(isset($_GET['Apartment'])){
+		$modelAds->attributes = $_GET['Apartment'];
+	}
+
+
+
+$relation['countAdRel'] = array(self::STAT, 'Apartment', 'owner_id', 'condition' => 'active = 1 AND owner_active = 1 AND listing_stat ='. $ZZYYListingActStatus);
+
+tab: http://api.jqueryui.com/tabs/
+        http://jqueryui.com/
+
+
+HTML In Database(htmlpurifier)          emoves all malicious code
+                http://www.bsourcecode.com/2012/11/rules-and-validation-in-yii-model/
+
+
+\n" = new line
+'\n' = \n
+"\t" = tab
+'\t' = \t
+
+
+For all the submitbutton hover color
+<div id="zzyycpmenubar">          
+    <div class="row buttons">
+        <?php echo CHtml::submitButton(tt('Save')); ?>
+</div>
+</div>
+
+C:\xampp\htdocs\zz7\themes\classic\css\styles.css
+                .row input[type="submit"]:hover, .button-blue:hover {
+                    background-color:#B8D6D6;
+                    color: #852432;
+
+CHtmlPurifie
+              
+               if (isset($_POST['user_input'])){
+                       $user_input = $_POST['user_input'];
+               }
+
+               $parser=new CHtmlPurifier(); //create instance of CHtmlPurifier
+               $user_input=$parser->purify($user_input); //we purify the $user_input
+
+               $this->render("htmlpurifier", array('user_input'=>$user_input));
+
+
+ARRAY SQL
+$zzyyRefVal = Yii::app()->request->getParam('zzmodel', array());
+                if ($zzyyRefVal){
+                   $zzyycount = count($zzyyRefVal);
+    
+    //http://www.yiiframework.com/doc/guide/1.1/en/database.query-builder
+    //http://www.bsourcecode.com/yii-framework/yii-cdbcriteria/
+
+//$yycriteria->select = 'id, title_en';
+//$criteria->compare('year(`EventStartdate`)','>=:'.$currentYear); 
+//http://www.yiiframework.com/doc/guide/1.1/en/caching.data                       
+
+
+$yycriteria = new CDbCriteria();
+$yycriteria = $criteria;                    
+$yyresult = Zzyyapartment::model()->findAll($yycriteria);
+$zzyyfindIds = array();
+foreach($yyresult as $zzyyitem) {
+	$zzyyfindIds[] = $zzyyitem->id;
+}
+
+    $zzRefAptID = implode(',',$zzyyfindIds);                   
+    $zzRefVal = implode(',',$zzyyRefVal);
+    
+    xdebug_break();
+       
+//http://stackoverflow.com/questions/7179260/sql-how-to-select-a-single-id-row-that-meets-multiple-criteria-from-a-singl    
+//Select user_id
+//from yourtable
+//where ancestry in ('England', 'France', 'Germany')
+//group by user_id
+//having count(user_id) = 3
+//18,21,26,28            
+    
+    
+    $zzvalue = Yii::app()->db->createCommand()
+    ->select(array('apartment_id', 'reference_value_id', 'count(*) as zzyynum'))
+    ->from('{{apartment_reference}}')
+    ->where('reference_value_id IN ('.$zzRefVal.')')
+    ->andWhere('apartment_id IN ('.$zzRefAptID.')')            
+    ->group('apartment_id')
+    ->having('zzyynum >= ('.$zzyycount.')')    
+    ->queryAll();
+
+    xdebug_break();
+    
+    $zzyyApts = array();
+foreach($zzvalue as $zzyyitem) {
+	$zzyyApts[] = $zzyyitem['apartment_id'];
+}
+if ( $zzyycount > 0) {    
+$criteria->addInCondition('t.id', $zzyyApts);
+}
+
+    
+    
+//18,21,26,28                
+$zzcriteria = new CDbCriteria();
+ $zzcriteria->addInCondition('reference_value_id',$zzyyRefVal);
+ $zzcriteria->addInCondition('apartment_id',  $zzyyfindIds);
+ 
+//$sql = 'SELECT x FROM y WHERE '.$criteria->condition;
+$sql = 'SELECT apartment_id, reference_value_id  FROM {{apartment_reference}} WHERE '.$zzcriteria->condition;
+$command = Yii::app()->db->createCommand($sql);
+$zzresults = $command->queryAll(true, $zzcriteria->params);
+
+
+
+ In order to ease of Saving Models Table Record
+each Table fields will need to define in Models rule!!!!
+
+CSS
+overflow: hidden;
+max-width: 60ch;
+set limit of CSS of Output Lines    http://jsfiddle.net/microbians/csYjC/
+
+ body {
+        padding:                     10px;
+    }
+
+    .box {
+        position:                   relative;
+        font-family:                sans-serif;
+        display:                    block;
+        width:                      244px;
+        height:                     7em;
+        overflow:                   hidden;
+    }
+    .box .text {
+        color:                      #333;
+        padding:                    20px;
+        width:                      204px;
+        overflow:                   hidden;
+        background:                 #E0E0E0;
+        font-size:                  .95em;
+        line-height:                1;
+        text-align:     			justify;
+    }
+    
+    .box .text:after {
+        content:                    ' ';
+        position:                   absolute;
+        display:                    block;
+        width:                      100%;
+        height:                     1em;
+        bottom:                     0px;
+        left:                       0px;
+        background:                 #E0E0E0;
+    }
+
+    .box .text:before {
+        content:                    '...';
+        text-align:                 right;
+        position:                   absolute;
+        display:                    block;
+        width:                      2em;
+        height:                     1em;
+        bottom:                     1em;
+        right:                      20px;
+
+    }
+
+add custom multi check box selection
+1. copy zzyyfac to another row on Table forumdesigner, DO NOT use Admin Form Editor to do this it will create a field in Table Apartment...
+
+DISABLE MODULE
+    BOOKING =>  <?php //terence disable zzyybooking ?>
+    STAR RATING =>  <?php //terence disable zzyystar ?>     rating.css     ratingview
+
+
+NEVER Minimize JS from CKEDITOR
+
+
+
+PAssword SALT KEY   private static $_saltAddon = 'zzyyorz';
+C:\xampp\htdocs\zz10\protected\models\User.php
+
+
+>>>>>>>>>>>>>>
+$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+    'name'=>'my_date',
+    'language'=>Yii::app()->language=='et' ? 'et' : null,
+    'options'=>array(
+        'showAnim'=>'fold', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'
+        'showOn'=>'button', // 'focus', 'button', 'both'
+        'buttonText'=>Yii::t('ui','Select form calendar'),
+        'buttonImage'=>Yii::app()->request->baseUrl.'/images/calendar.gif',
+        'buttonImageOnly'=>true,
+    ),
+    'htmlOptions'=>array(
+        'style'=>'width:80px;vertical-align:top'
+    ),
+));
+>>>>>>>>>>>>>>>
+
+
+$this->redirect(Yii::app()->homeUrl);
+$canonicalUrl = Yii::app()->getBaseUrl(true);
+
+CACHE
+set caching for messages default is 60 seconds way too low may be OK need to FBI
+C:\xampp\htdocs\zz11\protected\components\DbMessageSource.php       2592888; 2592000
+
+Apartment Model:    Objects cache time (in seconds) 1888
+
+
+    IF Table Translatation message text is blank  most likely is cause by  zzyyuom???????
